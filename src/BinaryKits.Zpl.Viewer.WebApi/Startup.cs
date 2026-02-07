@@ -38,7 +38,7 @@ namespace BinaryKits.Zpl.Viewer.WebApi
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "BinaryKits.Zpl.Viewer.WebApi", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "KLOSHIP ZPL Preview", Version = "v1" });
             });
 
         }
@@ -54,7 +54,7 @@ namespace BinaryKits.Zpl.Viewer.WebApi
             app.UseCors();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BinaryKits.Zpl.Viewer.WebApi v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KLOSHIP ZPL Preview v1"));
 
             app.UseRouting();
 
