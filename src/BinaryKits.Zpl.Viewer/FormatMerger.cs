@@ -27,7 +27,10 @@ namespace BinaryKits.Zpl.Viewer
 
                 if (rawLabelInfo.DownloadFormatName != null)
                 {
-                    templateFormats.Add(rawLabelInfo.DownloadFormatName, labelInfo);
+                    // Use indexer assignment instead of Add to allow a format to be redefined
+                    // within the same ZPL stream (matches Zebra printer behavior where ^DF
+                    // overwrites any previously stored format with the same name).
+                    templateFormats[rawLabelInfo.DownloadFormatName] = labelInfo;
                 }
                 else
                 {

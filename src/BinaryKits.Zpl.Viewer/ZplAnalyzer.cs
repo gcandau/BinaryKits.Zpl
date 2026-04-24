@@ -130,7 +130,14 @@ namespace BinaryKits.Zpl.Viewer
                 }
             }
 
-            labelInfos = this.formatMerger.MergeFormats(labelInfos);
+            try
+            {
+                labelInfos = this.formatMerger.MergeFormats(labelInfos);
+            }
+            catch (Exception exception)
+            {
+                errors.Add($"Cannot merge formats {exception}");
+            }
 
             AnalyzeInfo analyzeInfo = new()
             {
