@@ -98,11 +98,17 @@ namespace BinaryKits.Zpl.Viewer
 
                 if (labelEndCommand.Equals(currentCommand.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
-                    labelInfos.Add(new LabelInfo
+                    // Skip labels that contain no drawable elements and are not stored as a downloaded format.
+                    // Such blocks (e.g. printer configuration-only sections between ^XA and ^XZ that emit only
+                    // state-change elements like ^CI) should not produce a blank rendered label.
+                    if (this.virtualPrinter.NextDownloadFormatName != null || HasDrawableElement(elements))
                     {
-                        DownloadFormatName = this.virtualPrinter.NextDownloadFormatName,
-                        ZplElements = elements.ToArray()
-                    });
+                        labelInfos.Add(new LabelInfo
+                        {
+                            DownloadFormatName = this.virtualPrinter.NextDownloadFormatName,
+                            ZplElements = elements.ToArray()
+                        });
+                    }
                     continue;
                 }
 
@@ -140,6 +146,25 @@ namespace BinaryKits.Zpl.Viewer
         private static readonly HashSet<string> ignoredCommands = new(StringComparer.OrdinalIgnoreCase)
         {
         };
+
+        private static bool HasDrawableElement(List<ZplElementBase> elements)
+        {
+            // An element is considered drawable when at least one element drawer can render it.
+            // State-only elements such as ZplChangeInternationalFont or ZplFont have no drawer
+            // and therefore should not, on their own, trigger the rendering of an (empty) label.
+            for (int i = 0; i < elements.Count; i++)
+            {
+                ZplElementBase element = elements[i];
+                for (int j = 0; j < ZplElementDrawer.ElementDrawers.Length; j++)
+                {
+                    if (ZplElementDrawer.ElementDrawers[j].CanDraw(element))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         private static string[] SplitZplCommands(string zplData)
         {
