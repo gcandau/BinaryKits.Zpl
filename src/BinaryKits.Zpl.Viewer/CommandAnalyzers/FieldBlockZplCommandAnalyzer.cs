@@ -20,17 +20,17 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             TextJustification textJustification = TextJustification.Left;
             int hangingIndentOfTheSecondAndRemainingLines = 0;
 
-            if (zplDataParts.Length > 0 && int.TryParse(zplDataParts[0], out tmpint))
+            if (zplDataParts.Length > 0 && TryParseInt(zplDataParts[0], out tmpint))
             {
                 widthOfTextBlockLine = tmpint;
             }
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 maximumNumberOfLinesInTextBlock = tmpint;
             }
 
-            if (zplDataParts.Length > 2 && int.TryParse(zplDataParts[2], out tmpint))
+            if (zplDataParts.Length > 2 && TryParseInt(zplDataParts[2], out tmpint))
             {
                 addOrDeleteSpaceBetweenLines = tmpint;
             }
@@ -51,7 +51,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
                 }
             }
 
-            if (zplDataParts.Length > 4 && int.TryParse(zplDataParts[4], out tmpint))
+            if (zplDataParts.Length > 4 && TryParseInt(zplDataParts[4], out tmpint))
             {
                 hangingIndentOfTheSecondAndRemainingLines = tmpint;
             }

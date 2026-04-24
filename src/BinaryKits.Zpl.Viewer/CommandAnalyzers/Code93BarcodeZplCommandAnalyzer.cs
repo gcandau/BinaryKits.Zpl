@@ -20,7 +20,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             bool printInterpretationLineAboveCode = false;
 
             FieldOrientation fieldOrientation = this.ConvertFieldOrientation(zplDataParts[0], virtualPrinter);
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
             }

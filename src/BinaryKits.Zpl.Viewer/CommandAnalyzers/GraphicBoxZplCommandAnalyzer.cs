@@ -34,19 +34,19 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             string[] zplDataParts = this.SplitCommand(zplCommand);
 
             // thickness is the default for width and height, parse it first
-            if (zplDataParts.Length > 2 && int.TryParse(zplDataParts[2], out tmpint))
+            if (zplDataParts.Length > 2 && TryParseInt(zplDataParts[2], out tmpint))
             {
                 borderThickness = tmpint;
                 width = borderThickness;
                 height = borderThickness;
             }
 
-            if (zplDataParts.Length > 0 && int.TryParse(zplDataParts[0], out tmpint))
+            if (zplDataParts.Length > 0 && TryParseInt(zplDataParts[0], out tmpint))
             {
                 width = tmpint;
             }
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
             }
@@ -57,7 +57,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
                 lineColor = lineColorTemp == "W" ? LineColor.White : LineColor.Black;
             }
 
-            if (zplDataParts.Length > 4 && int.TryParse(zplDataParts[4], out tmpint))
+            if (zplDataParts.Length > 4 && TryParseInt(zplDataParts[4], out tmpint))
             {
                 cornerRounding = tmpint;
             }

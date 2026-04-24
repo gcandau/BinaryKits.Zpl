@@ -23,7 +23,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             bool uccCheckDigit = false;
             string mode = "N";
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
             }

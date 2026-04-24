@@ -25,7 +25,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
                 mod43CheckDigit = this.ConvertBoolean(zplDataParts[1]);
             }
 
-            if (zplDataParts.Length > 2 && int.TryParse(zplDataParts[2], out tmpint))
+            if (zplDataParts.Length > 2 && TryParseInt(zplDataParts[2], out tmpint))
             {
                 height = tmpint;
             }

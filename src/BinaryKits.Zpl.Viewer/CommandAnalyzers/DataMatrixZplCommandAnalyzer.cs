@@ -19,7 +19,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             int height = virtualPrinter.BarcodeInfo.Height;
             QualityLevel qualityLevel = QualityLevel.ECC0;
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
             }

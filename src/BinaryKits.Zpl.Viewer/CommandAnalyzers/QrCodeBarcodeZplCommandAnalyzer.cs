@@ -21,12 +21,12 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             ErrorCorrectionLevel errorCorrection = ErrorCorrectionLevel.HighReliability;
             int maskValue = 7;
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 model = tmpint;
             }
 
-            if (zplDataParts.Length > 2 && int.TryParse(zplDataParts[2], out tmpint))
+            if (zplDataParts.Length > 2 && TryParseInt(zplDataParts[2], out tmpint))
             {
                 magnificationFactor = tmpint;
 
@@ -42,7 +42,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
                 errorCorrection = this.ConvertErrorCorrectionLevel(zplDataParts[3]);
             }
 
-            if (zplDataParts.Length > 4 && int.TryParse(zplDataParts[4], out tmpint))
+            if (zplDataParts.Length > 4 && TryParseInt(zplDataParts[4], out tmpint))
             {
                 maskValue = tmpint;
             }

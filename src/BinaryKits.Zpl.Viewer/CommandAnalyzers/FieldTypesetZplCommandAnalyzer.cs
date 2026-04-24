@@ -1,4 +1,5 @@
-﻿using BinaryKits.Zpl.Label;
+﻿using System.Globalization;
+using BinaryKits.Zpl.Label;
 using BinaryKits.Zpl.Label.Elements;
 
 namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
@@ -25,7 +26,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             }
             else
             {
-                if (decimal.TryParse(zplDataParts[0], out tmpdec) &&
+                if (decimal.TryParse(zplDataParts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out tmpdec) &&
                     int.MinValue <= tmpdec && tmpdec <= int.MaxValue)
                 {
                     x = decimal.ToInt32(tmpdec);
@@ -39,7 +40,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
 
             if (zplDataParts.Length > 1 && !string.IsNullOrEmpty(zplDataParts[1]))
             {
-                if (decimal.TryParse(zplDataParts[1], out tmpdec) &&
+                if (decimal.TryParse(zplDataParts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out tmpdec) &&
                     int.MinValue <= tmpdec && tmpdec <= int.MaxValue)
                 {
                     y = decimal.ToInt32(tmpdec);

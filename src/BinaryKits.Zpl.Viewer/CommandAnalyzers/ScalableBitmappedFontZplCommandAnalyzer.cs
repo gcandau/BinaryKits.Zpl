@@ -20,12 +20,12 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             int? parsedHeight = null;
             int? parsedWidth = null;
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 parsedHeight = tmpint;
             }
 
-            if (zplDataParts.Length > 2 && int.TryParse(zplDataParts[2], out tmpint))
+            if (zplDataParts.Length > 2 && TryParseInt(zplDataParts[2], out tmpint))
             {
                 parsedWidth = tmpint;
             }

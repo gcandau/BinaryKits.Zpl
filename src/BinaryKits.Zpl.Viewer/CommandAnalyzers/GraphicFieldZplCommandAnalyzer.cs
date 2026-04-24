@@ -35,17 +35,17 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
 
             char compressionType = zplDataParts[0][0];
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 binaryByteCount = tmpint;
             }
 
-            if (zplDataParts.Length > 2 && int.TryParse(zplDataParts[2], out tmpint))
+            if (zplDataParts.Length > 2 && TryParseInt(zplDataParts[2], out tmpint))
             {
                 graphicFieldCount = tmpint;
             }
 
-            if (zplDataParts.Length > 3 && int.TryParse(zplDataParts[3], out tmpint))
+            if (zplDataParts.Length > 3 && TryParseInt(zplDataParts[3], out tmpint))
             {
                 bytesPerRow = tmpint;
             }

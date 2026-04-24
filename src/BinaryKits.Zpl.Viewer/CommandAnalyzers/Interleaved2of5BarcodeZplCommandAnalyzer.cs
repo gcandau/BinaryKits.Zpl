@@ -21,7 +21,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             bool printInterpretationLineAboveCode = false;
             bool calculateAndPrintMod10CheckDigit = false;
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
             }

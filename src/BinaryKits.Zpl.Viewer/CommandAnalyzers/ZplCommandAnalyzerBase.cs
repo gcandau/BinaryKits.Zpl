@@ -1,4 +1,5 @@
-﻿using BinaryKits.Zpl.Label;
+﻿using System.Globalization;
+using BinaryKits.Zpl.Label;
 using BinaryKits.Zpl.Label.Elements;
 
 namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
@@ -25,6 +26,29 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
         {
             string zplCommandData = zplCommand.Substring(this.PrinterCommandPrefix.Length + dataStartIndex);
             return zplCommandData.Trim().Split(',');
+        }
+
+        /// <summary>
+        /// Parses an integer ZPL parameter while tolerating decimal notation
+        /// (e.g. "260.0", "200.5") that some printer drivers emit. Uses the
+        /// invariant culture so behavior does not depend on the host locale.
+        /// </summary>
+        protected static bool TryParseInt(string value, out int result)
+        {
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result))
+            {
+                return true;
+            }
+
+            if (decimal.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal d)
+                && d >= int.MinValue && d <= int.MaxValue)
+            {
+                result = (int)System.Math.Round(d, System.MidpointRounding.AwayFromZero);
+                return true;
+            }
+
+            result = 0;
+            return false;
         }
 
         protected FieldOrientation ConvertFieldOrientation(string fieldOrientation, VirtualPrinter virtualPrinter)

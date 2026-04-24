@@ -14,7 +14,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             int tmpint;
             int fieldNumber = 0;
 
-            if (zplDataParts.Length > 0 && int.TryParse(zplDataParts[0], out tmpint))
+            if (zplDataParts.Length > 0 && TryParseInt(zplDataParts[0], out tmpint))
             {
                 fieldNumber = tmpint;
             }

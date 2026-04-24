@@ -20,7 +20,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             bool printInterpretationLine = true;
             bool printInterpretationLineAboveCode = false;
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
             }

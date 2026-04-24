@@ -31,12 +31,12 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
 
             string[] zplDataParts = this.SplitCommand(zplCommand);
 
-            if (zplDataParts.Length > 0 && int.TryParse(zplDataParts[0], out tmpint))
+            if (zplDataParts.Length > 0 && TryParseInt(zplDataParts[0], out tmpint))
             {
                 circleDiameter = tmpint;
             }
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 borderThickness = tmpint;
             }

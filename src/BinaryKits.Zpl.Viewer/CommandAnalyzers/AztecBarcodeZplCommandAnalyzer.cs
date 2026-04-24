@@ -22,7 +22,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             int symbolCount = 1;
             string idField = null;
 
-            if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
+            if (zplDataParts.Length > 1 && TryParseInt(zplDataParts[1], out tmpint))
             {
                 magnificationFactor = tmpint;
             }
@@ -32,7 +32,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
                 extendedChannel = this.ConvertBoolean(zplDataParts[2]);
             }
 
-            if (zplDataParts.Length > 3 && int.TryParse(zplDataParts[3], out tmpint))
+            if (zplDataParts.Length > 3 && TryParseInt(zplDataParts[3], out tmpint))
             {
                 errorControl = tmpint;
             }
@@ -42,7 +42,7 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
                 menuSymbol = this.ConvertBoolean(zplDataParts[4]);
             }
 
-            if (zplDataParts.Length > 5 && int.TryParse(zplDataParts[5], out tmpint))
+            if (zplDataParts.Length > 5 && TryParseInt(zplDataParts[5], out tmpint))
             {
                 symbolCount = tmpint;
             }
