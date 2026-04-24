@@ -25,9 +25,13 @@ namespace BinaryKits.Zpl.Viewer
             "Swis721 Cn BT",
             "TeX Gyre Heros Cn",
             "Nimbus Sans Narrow",
+            "DejaVu Sans Condensed",
+            "Liberation Sans Narrow",
             "Roboto Condensed",
-            "Helvetica",
+            "Arial Narrow",
             "Helvetica Neue",
+            "Avenir Next Condensed",
+            "Helvetica",
             "Arial",
         ];
 
@@ -38,9 +42,13 @@ namespace BinaryKits.Zpl.Viewer
         /// this list to customize the preferred monospace fonts for your application.</remarks>
         public List<string> FontStackA { get; set; } = [
             "DejaVu Sans Mono",
+            "Liberation Mono",
+            "Menlo",
+            "Monaco",
             "Lucida Console",
             "Andale Mono",
             "Droid Sans Mono",
+            "Courier New",
         ];
 
         /// <summary>
@@ -63,6 +71,15 @@ namespace BinaryKits.Zpl.Viewer
             SKFontStyleSlant.Upright
         );
 
+        // Normal-weight monospace used for the bitmap fonts B-H. On Zebra hardware
+        // these are fixed-matrix fonts (e.g. font D is the standard 18x10 dot matrix)
+        // that render as a slightly bolder monospace than font A.
+        private static readonly SKFontStyle fontStyleB = new(
+            SKFontStyleWeight.Bold,
+            SKFontStyleWidth.Normal,
+            SKFontStyleSlant.Upright
+        );
+
         private SKTypeface typeface0;
         internal SKTypeface Typeface0 {
             get {
@@ -79,16 +96,29 @@ namespace BinaryKits.Zpl.Viewer
             }
         }
 
+        private SKTypeface typefaceB;
+        internal SKTypeface TypefaceB {
+            get {
+                this.typefaceB ??= this.GetDefaultTypeface("B");
+                return this.typefaceB;
+            }
+        }
+
         internal SKTypeface TypefaceGS { get; } = SKTypeface.FromStream(new MemoryStream(Resources.ZplGS));
 
         public FontManager() {
             this.FontLoader = (fontName) => {
-                if (fontName == "0")
+                // On Zebra hardware (and Labelary), only font "A" is the small thin
+                // monospace bitmap (5x9). All other built-in fonts (scalable "0",
+                // bitmap "B"-"H" and "P"-"V") are variants of CG Triumvirate Bold
+                // Condensed at different intrinsic dot matrices. Route them all
+                // through Typeface0 to get the same proportional condensed look.
+                if (string.Equals(fontName, "A", StringComparison.OrdinalIgnoreCase))
                 {
-                    return this.Typeface0;
+                    return this.TypefaceA;
                 }
 
-                return this.TypefaceA;
+                return this.Typeface0;
             };
         }
 
@@ -114,6 +144,7 @@ namespace BinaryKits.Zpl.Viewer
             {
                 "0" => this.FontStack0,
                 "A" => this.FontStackA,
+                "B" => this.FontStackA,
                 _ => this.FontStackA,
             };
 
@@ -121,6 +152,7 @@ namespace BinaryKits.Zpl.Viewer
             {
                 "0" => fontStyle0,
                 "A" => fontStyleA,
+                "B" => fontStyleB,
                 _ => fontStyleA,
             };
 

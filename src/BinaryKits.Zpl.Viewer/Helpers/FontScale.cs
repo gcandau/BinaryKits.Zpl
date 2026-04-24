@@ -124,6 +124,17 @@ namespace BinaryKits.Zpl.Viewer.Helpers
         {
             (int height, int width)? fontScale = GetFontScale(fontName, printDensityDpmm);
 
+            // For the scalable font "0", a fontWidth larger than fontHeight is most often a
+            // legacy default carried over from bitmap fonts (e.g. ^A0N,16,28). Real Zebra
+            // hardware (and Labelary) keeps proportional spacing in that case rather than
+            // stretching every glyph horizontally — emulate that behavior.
+            if (string.Equals(fontName, "0", System.StringComparison.OrdinalIgnoreCase)
+                && fontHeight > 0
+                && fontWidth > fontHeight)
+            {
+                fontWidth = 0;
+            }
+
             if (fontScale != null)
             {
                 (int height, int width) = fontScale.Value;

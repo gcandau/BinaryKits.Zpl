@@ -1,4 +1,5 @@
-﻿using BinaryKits.Zpl.Label;
+﻿using System.Globalization;
+using BinaryKits.Zpl.Label;
 using BinaryKits.Zpl.Label.Elements;
 using BinaryKits.Zpl.Viewer.Models;
 
@@ -25,6 +26,12 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             if (zplDataParts.Length > 1 && int.TryParse(zplDataParts[1], out tmpint))
             {
                 height = tmpint;
+            }
+            else if (zplDataParts.Length > 1
+                && float.TryParse(zplDataParts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out float tmpFloat))
+            {
+                // Tolerate decimal heights such as ^BCR,172.0,... (Labelary accepts these).
+                height = (int)System.Math.Round(tmpFloat);
             }
 
             if (zplDataParts.Length > 2)

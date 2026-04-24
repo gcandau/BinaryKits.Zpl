@@ -254,3 +254,7 @@ paket-files/
 
 # CodeRush
 .cr/
+
+zpl_samples/
+.DS_Store
+internal_readme.md
