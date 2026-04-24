@@ -8,7 +8,8 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
 {
     public class DownloadGraphicsZplCommandAnalyzer : ZplCommandAnalyzerBase
     {
-        private static readonly Regex commandRegex = new(@"^~DG(\w:)?(.*?\..+?),(\d+),(\d+),(.+)$", RegexOptions.Compiled);
+        // Image name may or may not include an extension. When omitted, ZPL defaults to .GRF.
+        private static readonly Regex commandRegex = new(@"^~DG(\w:)?([^,]+?),(\d+),(\d+),(.+)$", RegexOptions.Compiled);
 
         public DownloadGraphicsZplCommandAnalyzer() : base("~DG") { }
 
@@ -20,6 +21,11 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
             {
                 char storageDevice = commandMatch.Groups[1].Success ? commandMatch.Groups[1].Value[0] : 'R';
                 string imageName = commandMatch.Groups[2].Value;
+                if (!imageName.Contains('.'))
+                {
+                    imageName += ".GRF";
+                }
+                imageName = imageName.ToUpperInvariant();
                 _ = int.TryParse(commandMatch.Groups[3].Value, out int totalNumberOfBytesInGraphic);
                 _ = int.TryParse(commandMatch.Groups[4].Value, out int numberOfBytesPerRow);
                 string dataHex = commandMatch.Groups[5].Value;

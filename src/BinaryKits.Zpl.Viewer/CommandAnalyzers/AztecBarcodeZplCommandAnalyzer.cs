@@ -6,7 +6,15 @@ namespace BinaryKits.Zpl.Viewer.CommandAnalyzers
 {
     public class AztecBarcodeZplCommandAnalyzer : ZplCommandAnalyzerBase
     {
-        public AztecBarcodeZplCommandAnalyzer() : base("^BO") { }
+        // The official ZPL II Aztec command is ^B0 (digit zero); some sources/printers
+        // also use ^BO (letter O). Accept both spellings.
+        public AztecBarcodeZplCommandAnalyzer() : base("^B0") { }
+
+        ///<inheritdoc/>
+        public override bool CanAnalyze(string zplLine)
+        {
+            return zplLine.StartsWith("^B0") || zplLine.StartsWith("^BO");
+        }
 
         ///<inheritdoc/>
         public override ZplElementBase Analyze(string zplCommand, VirtualPrinter virtualPrinter, IPrinterStorage printerStorage)
